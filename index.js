@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import {GLTFLoader,} from "three/examples/jsm/loaders/GLTFLoader";
-import model from "./src/models/bricks_four.gltf";
+import model from "./src/models/bricks_noShadows.gltf";
 
 
 console.log('work')
@@ -16,6 +16,11 @@ camera.position.set(14, 10, 13);
 camera.rotation.set(-0.6556956262415362, 0.7065774856978788, 0.4631763928482476);
 
 
+let light = new THREE.PointLight(0xffffff, 1);
+light.position.set(0, 2, 6);
+scene.add(light)
+
+
 const canvas = document.querySelector('canvas');
 const renderer = new THREE.WebGLRenderer({
     antialias: false,
@@ -26,7 +31,6 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setPixelRatio(Math.min(2, window.devicePixelRatio));
 renderer.setSize(innerWidth, innerHeight);
 renderer.setClearColor(0xffffff, 0);
-renderer.shadowMap.enabled = true;
 
 
 console.log(camera.rotation)
@@ -48,14 +52,6 @@ loader.load(// resource URL
     model, // called when the resource is loaded
     function (gltf) {
         console.log(gltf);
-
-        gltf.scene.children[1].receiveShadow = true;
-        gltf.scene.children[1].castShadow = true;
-
-        let light = new THREE.RectAreaLight(gltf.scene);
-        light.position.set(0, 2, 6);
-        scene.add(light)
-
 
         mixer = new THREE.AnimationMixer(gltf.scene);
         const action = mixer.clipAction(gltf.animations[0]);
@@ -86,8 +82,6 @@ loader.load(// resource URL
         console.log('An error happened');
 
     },);
-
-
 /*scene.add(axesHELPER);*/
 
 
