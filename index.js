@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import {GLTFLoader,} from "three/examples/jsm/loaders/GLTFLoader";
-import model from "./src/models/bricks_noShadows.gltf";
+import model from "./src/models/bricks_Shadows.gltf";
 
 
 console.log('work')
